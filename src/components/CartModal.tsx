@@ -1,13 +1,13 @@
 "use client";
 
-import { useCartStore } from "@/hooks/useCartStore";
 import Image from "next/image";
+import { useCartStore } from "@/hooks/useCartStore";
 import { media as wixMedia } from "@wix/sdk";
 import { useWixClient } from "@/hooks/useWixClient";
 import { currentCart } from "@wix/ecom";
 
 const CartModal = () => {
-  // Temporary
+  // TEMPORARY
   // const cartItems = true;
 
   const wixClient = useWixClient();
@@ -15,18 +15,17 @@ const CartModal = () => {
 
   const handleCheckout = async () => {
     try {
-      const checkout = await wixClient.currentCart.createCheckoutFromCurrentCart({
-        channelType: currentCart.ChannelType.WEB,
-      });
+      const checkout =
+        await wixClient.currentCart.createCheckoutFromCurrentCart({
+          channelType: currentCart.ChannelType.WEB,
+        });
 
       const { redirectSession } =
         await wixClient.redirects.createRedirectSession({
-          ecomCheckout: {
-            checkoutId: checkout.checkoutId,
-          },
+          ecomCheckout: { checkoutId: checkout.checkoutId },
           callbacks: {
             postFlowUrl: window.location.origin,
-            thanksYouPageUrl: `${window.location.origin}/success`,
+            thankYouPageUrl: `${window.location.origin}/success`,
           },
         });
 
@@ -45,9 +44,9 @@ const CartModal = () => {
       ) : (
         <>
           <h2 className="text-xl">Shopping Cart</h2>
-          {/* List */}
+          {/* LIST */}
           <div className="flex flex-col gap-8">
-            {/* Item */}
+            {/* ITEM */}
             {cart.lineItems.map((item) => (
               <div className="flex gap-4" key={item._id}>
                 {item.image && (
@@ -65,9 +64,9 @@ const CartModal = () => {
                   />
                 )}
                 <div className="flex flex-col justify-between w-full">
-                  {/* Top */}
+                  {/* TOP */}
                   <div className="">
-                    {/* Title */}
+                    {/* TITLE */}
                     <div className="flex items-center justify-between gap-8">
                       <h3 className="font-semibold">
                         {item.productName?.original}
@@ -81,16 +80,16 @@ const CartModal = () => {
                         ${item.price?.amount}
                       </div>
                     </div>
-                    {/* Description */}
+                    {/* DESC */}
                     <div className="text-sm text-gray-500">
                       {item.availability?.status}
                     </div>
                   </div>
-                  {/* Bottom */}
+                  {/* BOTTOM */}
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Qty. {item.quantity}</span>
                     <span
-                      className="text-blue-500 "
+                      className="text-blue-500"
                       style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                       onClick={() => removeItem(wixClient, item._id!)}
                     >
@@ -101,11 +100,11 @@ const CartModal = () => {
               </div>
             ))}
           </div>
-          {/* Bottom */}
+          {/* BOTTOM */}
           <div className="">
             <div className="flex items-center justify-between font-semibold">
               <span className="">Subtotal</span>
-              <span className="">${cart.subtotal.amount}</span>
+              <span className=""><span className="">${(cart as any).subtotal.amount}</span></span>
             </div>
             <p className="text-gray-500 text-sm mt-2 mb-4">
               Shipping and taxes calculated at checkout.

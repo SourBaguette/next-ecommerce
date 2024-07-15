@@ -2,7 +2,6 @@ import { wixClientServer } from "@/lib/wixClientServer";
 import { products } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
-
 import DOMPurify from "isomorphic-dompurify";
 import Pagination from "./Pagination";
 
@@ -64,7 +63,7 @@ const ProductList = async ({
               alt=""
               fill
               sizes="25vw"
-              className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity duration-500 ease-in"
+              className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
             />
             {product.media?.items && (
               <Image
@@ -78,7 +77,7 @@ const ProductList = async ({
           </div>
           <div className="flex justify-between">
             <span className="font-medium">{product.name}</span>
-            <span className="font-semibold">$ {product.priceData?.price}</span>
+            <span className="font-semibold">${product.price?.price}</span>
           </div>
           {product.additionalInfoSections && (
             <div
@@ -92,7 +91,7 @@ const ProductList = async ({
               }}
             ></div>
           )}
-          <button className="rounded-2xl ring-1 ring-lama text-lama py-2 px-4 text-xs hover:bg-lama hover:text-white w-max">
+          <button className="rounded-2xl ring-1 ring-lama text-lama w-max py-2 px-4 text-xs hover:bg-lama hover:text-white">
             Add to Cart
           </button>
         </Link>

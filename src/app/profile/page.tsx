@@ -10,8 +10,8 @@ const ProfilePage = async () => {
     fieldsets: [members.Set.FULL],
   });
 
-  if (!user.members.contactId) {
-    <div className="">Not logged in!</div>;
+  if (!user.member?.contactId) {
+    return <div className="">Not logged in!</div>;
   }
 
   const orderRes = await wixClient.orders.searchOrders({
